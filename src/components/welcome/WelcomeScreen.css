@@ -1,0 +1,16 @@
+.welcome-screen {
+    padding: 2rem;
+    text-align: center;
+}
+
+.welcome-screen .welcome-screen__img {
+    margin-top: 50px;
+}
+
+.welcome-screen .welcome-screen__subtitle {
+    color: var(--black);
+}
+
+.welcome-screen .welcome-screen__continue-btn {
+    margin-top: 80px;
+}
