@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 export const NoCounters = () => {
     return (
-        <section className="main__no-counters">
-            <h3 className="main__no-counters-title">
+        <div className="container-fluid__no-counters">
+            <h4>
                 <strong>No counters yet</strong>
-            </h3>
-            <p className="main__no-counters-subtitle">
+            </h4>
+            <p>
                 <q>When I started couting my blessings, my whole life turned around.</q>
             </p>
-            <p className="main__no-counters-cite">
-                &mdash; Willie Nelson
+            <p>
+                &mdash;&nbsp;Willie Nelson
             </p>
-        </section>
+        </div>
     )
 }

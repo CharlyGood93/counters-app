@@ -3,8 +3,6 @@ import { ExampleScreen } from '../examples/ExampleScreen';
 import { Button, CloseIcon, Input, Loading, Modal, NewIcon, useModal } from '../../ui';
 import { postNewCounters } from '../../api/postNewCounters';
 
-import './MainScreen.css';
-
 export const FooterScreen = () => {
 
 

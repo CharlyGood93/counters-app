@@ -2,8 +2,6 @@ import React from 'react';
 import { Button } from '../../ui';
 import { products } from '../../data/products';
 
-import './ExampleScreen.css';
-
 export const ExampleScreen = () => {
 
     return (

@@ -1,0 +1,39 @@
+.container-fluid {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.container-fluid__no-counters {
+    margin: 150px 0 150px 0;
+}
+
+.container-fluid__no-counters h4 {
+    color: var(--dark-black);
+}
+
+.container-fluid__no-counters p {
+    color: var(--grey);
+}
+
+.footer {
+    border-top: 1px solid var(--silver);
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+    position: absolute;
+    width: 100%;
+}
+
+.footer__add-counter Button {
+    float: right;
+}
+
+.footer__actions Button, .footer__add-counter Button {
+    margin: 5px;
+}
+
+.footer__actions Button span svg, .footer__add-counter Button span svg, .modal__close-button Button span svg {
+    margin: 0px;
+}

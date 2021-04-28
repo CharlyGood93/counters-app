@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom';
 
 import 'normalize.css';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './App';
 
 import { AppRouter } from './routers/AppRouter';
 
