@@ -35,8 +35,15 @@
 }
 
 .footer__actions Button span svg, .footer__add-counter Button span svg, 
-.modal__close-button Button span svg, .list__actions Button span svg {
+.modal__close-button Button span svg, .list__actions Button span svg,
+.icon-refresh svg {
     margin: 0px;
+}
+
+.icon-refresh {
+    align-content: center;
+    display: flex;
+    float: left;
 }
 
 .list-group .list-group-item {

@@ -13,7 +13,7 @@ import { ListCountersScreen } from './ListCountersScreen';
 export const MainScreen = () => {
 
     const [getCounters, setGetCounters] = useState({
-        status: 200,
+        status: 0,
         data: []
     });
     const [loading, setLoading] = useState(true);

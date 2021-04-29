@@ -3,14 +3,33 @@ import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { getAllCounters } from '../../api/getAllCounters';
 import { updateCountersById } from '../../api/updateCountersById';
 import { Button, DecrementIcon, IncrementIcon } from '../../ui';
+import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
 
 export const ListCountersScreen = ({ products }) => {
 
-    const [counts, setCounts] = useState(0);
+    console.log(products)
+
+    const [dataProducts, setDataProducts] = useState(products);
+    const [refreshList, setRefreshList] = useState(false);
 
     const handleDecIncCounters = async (id, opt) => {
         const resp = await updateCountersById(id, opt);
         console.log(resp);
+        products.map((currentValue) => {
+            if (currentValue.id === id) {
+                currentValue.count = resp.data.count;
+                setDataProducts({ currentValue });
+            }
+        });
+    }
+
+    const handleRefreshList = async () => {
+        console.log('Youre click me');
+        setRefreshList(true);
+        // Here I need to call the api get
+        setTimeout(() => {
+            setRefreshList(false);
+        }, 1000);
     }
 
     return (
@@ -18,7 +37,8 @@ export const ListCountersScreen = ({ products }) => {
             <Row>
                 <Col>
                     {
-                        products.length > 1 ? <><strong>{products.length} items</strong></> : <>{products.length} item</>
+                        products.length > 1 ?
+                            <><strong>{products.length} items</strong></> : <><strong>{products.length} item</strong></>
                     }
                 </Col>
                 <Col>
@@ -27,13 +47,16 @@ export const ListCountersScreen = ({ products }) => {
                     }
                     &nbsp;times
                 </Col>
-                <Col>
-                    Icon Refresh
+                <Col className="icon-refresh" onClick={handleRefreshList}>
+                    {
+                        refreshList ? <><RefreshIcon fill="var(--app-tint)" />&nbsp;<small style={{ color: 'var(--app-tint)' }}>Refreshing...</small> </> :
+                            <RefreshIcon />
+                    }
                 </Col>
             </Row>
             <ListGroup>
                 {
-                    products.map((product, i) => (
+                    products.map((product) => (
                         <ListGroup.Item key={product.id}>
                             <Row className="list__product">
                                 <Col className="list__product-title">
