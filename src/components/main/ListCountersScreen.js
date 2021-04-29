@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { getAllCounters } from '../../api/getAllCounters';
 import { updateCountersById } from '../../api/updateCountersById';
-import { Button, DecrementIcon, IncrementIcon } from '../../ui';
+import { Alert, Button, DecrementIcon, IncrementIcon, useAlert } from '../../ui';
 import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
 
 export const ListCountersScreen = ({ products }) => {
@@ -11,25 +11,59 @@ export const ListCountersScreen = ({ products }) => {
 
     const [dataProducts, setDataProducts] = useState(products);
     const [refreshList, setRefreshList] = useState(false);
+    const [showErrorUpdate, setShowErrorUpdate] = useState(false);
+    const [retryUpdateCounters, setRetryUpdateCounters] = useState(products);
 
-    const handleDecIncCounters = async (id, opt) => {
-        const resp = await updateCountersById(id, opt);
-        console.log(resp);
-        products.map((currentValue) => {
-            if (currentValue.id === id) {
-                currentValue.count = resp.data.count;
-                setDataProducts({ currentValue });
+    const { isVisible: isAlertVisible, hideAlert, showAlert } = useAlert();
+
+    useEffect(() => {
+        countersData();
+    }, []);
+
+    const handleDecIncCounters = async (item, opt) => {
+        const resp = await updateCountersById(item.id, opt);
+        if (resp.status === 200) {
+            products.map((currentValue) => {
+                if (currentValue.id === item.id) {
+                    currentValue.count = resp.data.count;
+                    setDataProducts({ currentValue });
+                }
+            });
+        } else {
+            if (opt === 'inc') {
+                item.count += 1;
+                item.opt = opt;
+            } else {
+                item.count -= 1;
+                item.opt = opt;
             }
-        });
+            setRetryUpdateCounters(item);
+            setShowErrorUpdate(true);
+            showAlert(true);
+        }
+    }
+
+    const countersData = async () => {
+        const data = await getAllCounters();
+        setDataProducts(data);
     }
 
     const handleRefreshList = async () => {
-        console.log('Youre click me');
         setRefreshList(true);
-        // Here I need to call the api get
+        await countersData();
         setTimeout(() => {
             setRefreshList(false);
         }, 1000);
+    }
+
+    const handleRetryUpdate = async (item) => {
+        await handleDecIncCounters(item, item.opt);
+        setShowErrorUpdate(false);
+    }
+
+    const handleDismissUpdate = () => {
+        setShowErrorUpdate(false);
+        hideAlert(true);
     }
 
     return (
@@ -67,7 +101,7 @@ export const ListCountersScreen = ({ products }) => {
                                         className="list__count-button"
                                         color="white"
                                         disabled={product.count <= 0 ? true : false}
-                                        onClick={() => handleDecIncCounters(product.id, 'dec')}
+                                        onClick={() => handleDecIncCounters(product, 'dec')}
                                         size="big">
                                         <DecrementIcon fill={product.count <= 0 ? 'var(--grey)' : 'var(--app-tint)'} />
                                     </Button>
@@ -77,7 +111,7 @@ export const ListCountersScreen = ({ products }) => {
                                     <Button
                                         className="list__count-button"
                                         color="white"
-                                        onClick={() => handleDecIncCounters(product.id, 'inc')}
+                                        onClick={() => handleDecIncCounters(product, 'inc')}
                                         size="big">
                                         <IncrementIcon fill="var(--app-tint)" />
                                     </Button>
@@ -87,6 +121,30 @@ export const ListCountersScreen = ({ products }) => {
                     ))
                 }
             </ListGroup>
+            {
+                showErrorUpdate ?
+                    <>
+                        <Alert isVisible={isAlertVisible}>
+                            <Alert.Title>
+                                <p>
+                                    Couldn't update <q>{retryUpdateCounters.title}</q> to {retryUpdateCounters.count}
+                                </p>
+                            </Alert.Title>
+                            <Alert.Message>
+                                The internet connection appears to be offline.
+                                </Alert.Message>
+                            <Alert.Actions>
+                                <Button onClick={() =>
+                                    handleRetryUpdate(retryUpdateCounters)}>
+                                    Retry
+                                    </Button>
+                                <Button color="white" kind="flat" onClick={handleDismissUpdate}>
+                                    Dismiss
+                                </Button>
+                            </Alert.Actions>
+                        </Alert>
+                    </> : <></>
+            }
         </Container>
     )
 }
