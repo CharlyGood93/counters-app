@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { getAllCounters } from '../../api/getAllCounters';
+import { updateCountersById } from '../../api/updateCountersById';
 import { Button, DecrementIcon, IncrementIcon } from '../../ui';
 
 export const ListCountersScreen = ({ products }) => {
 
-    const [counter, setCounter] = useState();
+    const [counts, setCounts] = useState(0);
 
-    const handleDecrementCount = (count) => {
-        console.log('Decrement counters');
-    }
-
-    const handleIncrementCount = (count) => {
-        console.log('Increment counters');
+    const handleDecIncCounters = async (id, opt) => {
+        const resp = await updateCountersById(id, opt);
+        console.log(resp);
     }
 
     return (
         <Container fluid>
-            <Row style={{ alignContent: 'center' }}>
+            <Row>
                 <Col>
                     {
                         products.length > 1 ? <><strong>{products.length} items</strong></> : <>{products.length} item</>
@@ -36,16 +35,27 @@ export const ListCountersScreen = ({ products }) => {
                 {
                     products.map((product, i) => (
                         <ListGroup.Item key={product.id}>
-                            <Row>
-                                <Col>
+                            <Row className="list__product">
+                                <Col className="list__product-title">
                                     {product.title}
                                 </Col>
-                                <Col>
-                                    <Button size="big" color="white">
-                                        <DecrementIcon fill="var(--app-tint)" />
+                                <Col className="list__actions">
+                                    <Button
+                                        className="list__count-button"
+                                        color="white"
+                                        disabled={product.count <= 0 ? true : false}
+                                        onClick={() => handleDecIncCounters(product.id, 'dec')}
+                                        size="big">
+                                        <DecrementIcon fill={product.count <= 0 ? 'var(--grey)' : 'var(--app-tint)'} />
                                     </Button>
-                                    {product.count}
-                                    <Button size="big" color="white">
+                                    <div className="list__count">
+                                        <strong>{product.count}</strong>
+                                    </div>
+                                    <Button
+                                        className="list__count-button"
+                                        color="white"
+                                        onClick={() => handleDecIncCounters(product.id, 'inc')}
+                                        size="big">
                                         <IncrementIcon fill="var(--app-tint)" />
                                     </Button>
                                 </Col>

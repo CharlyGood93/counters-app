@@ -34,6 +34,43 @@
     margin: 5px;
 }
 
-.footer__actions Button span svg, .footer__add-counter Button span svg, .modal__close-button Button span svg {
+.footer__actions Button span svg, .footer__add-counter Button span svg, 
+.modal__close-button Button span svg, .list__actions Button span svg {
     margin: 0px;
+}
+
+.list-group .list-group-item {
+    border: none;
+}
+
+.row .list__product-title {
+    text-align: left;
+}
+
+.list__product {
+    cursor: pointer;
+}
+
+.list__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list__actions div {
+    align-items: center;
+    margin: 3px;
+}
+
+.list__actions div svg {
+    margin: 0px;
+}
+
+.list__count {
+    display: flex;
+    align-content: center;
+}
+
+.list__count-button {
+    border: none;
+    box-shadow: none;
 }

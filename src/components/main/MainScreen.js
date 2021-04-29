@@ -13,7 +13,7 @@ import { ListCountersScreen } from './ListCountersScreen';
 export const MainScreen = () => {
 
     const [getCounters, setGetCounters] = useState({
-        status: 0,
+        status: 200,
         data: []
     });
     const [loading, setLoading] = useState(true);
@@ -107,7 +107,7 @@ export const MainScreen = () => {
                         </Col>
                         <Col className="footer__add-counter">
                             <Button size="big" onClick={showModal}>
-                                <NewIcon fill="var(--white" />
+                                <NewIcon fill="var(--white)" />
                             </Button>
                         </Col>
                     </Row>
