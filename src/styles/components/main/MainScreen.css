@@ -81,3 +81,12 @@
     border: none;
     box-shadow: none;
 }
+
+.button-action {
+    height: 0px;
+    width: 0px;
+}
+
+.button-action::before{
+    background-color: var(--white);
+}

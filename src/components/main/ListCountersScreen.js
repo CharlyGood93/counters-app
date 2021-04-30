@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { Col, ListGroup, Row, Table } from 'react-bootstrap';
 import { getAllCounters } from '../../api/getAllCounters';
 import { updateCountersById } from '../../api/updateCountersById';
 import { Alert, Button, DecrementIcon, IncrementIcon, useAlert } from '../../ui';
 import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
 
 export const ListCountersScreen = ({ products }) => {
-
-    console.log(products)
 
     const [dataProducts, setDataProducts] = useState(products);
     const [refreshList, setRefreshList] = useState(false);
@@ -67,62 +65,93 @@ export const ListCountersScreen = ({ products }) => {
     }
 
     return (
-        <Container fluid>
-            <Row>
-                <Col>
-                    {
-                        products.length > 1 ?
-                            <><strong>{products.length} items</strong></> : <><strong>{products.length} item</strong></>
-                    }
-                </Col>
-                <Col>
-                    {
-                        products.reduce((a, b) => a + b.count, 0)
-                    }
-                    &nbsp;times
-                </Col>
-                <Col className="icon-refresh" onClick={handleRefreshList}>
-                    {
-                        refreshList ? <><RefreshIcon fill="var(--app-tint)" />&nbsp;<small style={{ color: 'var(--app-tint)' }}>Refreshing...</small> </> :
-                            <RefreshIcon />
-                    }
-                </Col>
-            </Row>
+        <>
             <ListGroup>
+                <ListGroup.Item className="d-flex align-items-center">
+                    <span className="float-left mr-2">
+                        {
+                            products.length > 1 ?
+                                <><strong>{products.length} items</strong></> : <><strong>{products.length} item</strong></>
+                        }
+                    </span>
+                    <span className="float-none mr-2">
+                        {
+                            products.reduce((a, b) => a + b.count, 0)
+                        }
+                    &nbsp;times
+                    </span>
+                    <span
+                        className="d-flex float-right align-items-center"
+                        onClick={handleRefreshList}
+                        style={{ color: refreshList && 'var(--app-tint)' }}>
+                        {
+                            refreshList ? <><RefreshIcon fill="var(--app-tint)" /> &nbsp;Refreshing...</> : <RefreshIcon />
+                        }
+                    </span>
+                </ListGroup.Item>
                 {
-                    products.map((product) => (
+                    products.map(product => (
                         <ListGroup.Item key={product.id}>
-                            <Row className="list__product">
-                                <Col className="list__product-title">
-                                    {product.title}
-                                </Col>
-                                <Col className="list__actions">
-                                    <Button
-                                        className="list__count-button"
-                                        color="white"
-                                        disabled={product.count <= 0 ? true : false}
-                                        onClick={() => handleDecIncCounters(product, 'dec')}
-                                        size="big">
-                                        <DecrementIcon fill={product.count <= 0 ? 'var(--grey)' : 'var(--app-tint)'} />
-                                    </Button>
-                                    <div className="list__count">
-                                        <strong>{product.count}</strong>
-                                    </div>
-                                    <Button
-                                        className="list__count-button"
-                                        color="white"
-                                        onClick={() => handleDecIncCounters(product, 'inc')}
-                                        size="big">
-                                        <IncrementIcon fill="var(--app-tint)" />
-                                    </Button>
-                                </Col>
-                            </Row>
+                            <span className="float-left" onClick={() => console.log('click')}>
+                                {product.title}
+                            </span>
+                            <span className="align-items-center d-flex float-right">
+                                <Button
+                                    className="border-0 shadow-none button-action"
+                                    color="white"
+                                    disabled={product.count <= 0 ? true : false}
+                                    onClick={() => handleDecIncCounters(product, 'dec')}
+                                    size="big">
+                                    <DecrementIcon
+                                        fill={product.count > 0 ? 'var(--app-tint)' : 'var(--grey)'} />
+                                </Button>
+                                <strong>{product.count}</strong>
+                                <Button
+                                    className="border-0 shadow-none button-action"
+                                    color="white"
+                                    onClick={() => handleDecIncCounters(product, 'inc')}
+                                    size="big" >
+                                    <IncrementIcon
+                                        fill="var(--app-tint)" />
+                                </Button>
+                            </span>
                         </ListGroup.Item>
                     ))
                 }
             </ListGroup>
+            {/* <Table size="sm" borderless>
+                <tbody>
+                    {
+                        products.map(product => (
+                            <tr id={product.id} key={product.id}>
+                                <td colSpan="2" className="d-flex">
+                                    <span>
+                                        {product.title}
+                                    </span>
+                                    <span className="ml-auto">
+                                        <Button
+                                            color="white"
+                                            disabled={product.count <= 0 ? true : false}
+                                            onClick={() => handleDecIncCounters(product, 'dec')}>
+                                            <DecrementIcon
+                                                fill={product.count > 0 ? 'var(--app-tint)' : 'var(--grey)'} />
+                                        </Button>
+                                        <strong>{product.count}</strong>
+                                        <Button
+                                            color="white"
+                                            onClick={() => handleDecIncCounters(product, 'inc')} >
+                                            <IncrementIcon
+                                                fill="var(--app-tint)" />
+                                        </Button>
+                                    </span>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </Table> */}
             {
-                showErrorUpdate ?
+                showErrorUpdate &&
                     <>
                         <Alert isVisible={isAlertVisible}>
                             <Alert.Title>
@@ -143,8 +172,8 @@ export const ListCountersScreen = ({ products }) => {
                                 </Button>
                             </Alert.Actions>
                         </Alert>
-                    </> : <></>
+                    </>
             }
-        </Container>
+        </>
     )
 }
