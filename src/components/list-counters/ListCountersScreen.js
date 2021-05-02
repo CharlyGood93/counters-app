@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { updateCountersById } from '../../api/updateCountersById';
-
-import { Col, ListGroup, Row, Table } from 'react-bootstrap';
+import { Col, ListGroup, Row } from 'react-bootstrap';
 import { Alert, Button, DecrementIcon, IncrementIcon, useAlert } from '../../ui';
 import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
+
+import { updateCountersById } from '../../api/updateCountersById';
 
 import { NoResultsScreen } from '../errors/no-results/NoResultsScreen';
 
@@ -24,8 +24,9 @@ export const ListCountersScreen = (props) => {
         if (props.selectedItems.length === 0 && selectedItems.length > 1) {
             setSelectedItems(props.selectedItems);
         }
-        let lastItem = selectedItems[selectedItems.length - 1];
+        let lastItem;
         if (selectedItems.length > 0) {
+            lastItem = selectedItems[selectedItems.length - 1];
             let counts = 0;
             selectedItems.map(items => {
                 if (lastItem.id === items.id) {
@@ -71,6 +72,10 @@ export const ListCountersScreen = (props) => {
 
     const handleRefreshList = () => {
         setRefreshList(true);
+        const itemSelected = document.getElementsByClassName('list-group-item active');
+        if (itemSelected.length === 0) {
+            setSelectedItems([]);
+        }
         countersData();
         setTimeout(() => {
             setRefreshList(false);

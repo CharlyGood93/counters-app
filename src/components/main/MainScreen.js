@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { getAllCounters } from '../../api/getAllCounters';
-
 import { Col, Container, Row } from 'react-bootstrap';
 import { Button, Input, SearchIcon } from '../../ui';
+
+import { getAllCounters } from '../../api/getAllCounters';
 
 import { ErrorLoadCountersScreen } from '../errors/error-load-counters/ErrorLoadCountersScreen';
 import { FooterScreen } from '../footer/FooterScreen';
@@ -43,7 +43,6 @@ export const MainScreen = (props) => {
 
     const updateSelectedItems = (items) => {
         setSelectedItems(items);
-        console.log({ main: selectedItems });
     }
 
     const handleChangeSearch = (e) => {
@@ -60,6 +59,10 @@ export const MainScreen = (props) => {
     const handleOnFocus = () => {
         setSearchFocus(true);
     }
+    
+    const handleOnBlur = () => {
+        setSearchFocus(false);
+    }
 
     return (
         <>
@@ -75,6 +78,7 @@ export const MainScreen = (props) => {
                             placeholder="Search Counters"
                             onChange={handleChangeSearch}
                             onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
                             value={searchValue} />
                         {
                             (getCounters.data.length > 0 && searchFocus) &&

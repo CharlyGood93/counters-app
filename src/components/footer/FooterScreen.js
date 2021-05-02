@@ -34,8 +34,11 @@ export const FooterScreen = (props) => {
             text += item.count + ' x ' + item.title + '\n';
         });
         setCopyText(text);
-        console.log(text);
     }, [props.selectedItems]);
+
+    useEffect(() => {
+        props.updateSelectedItems(selectedItems);
+    }, [selectedItems]);
 
     const handleCountersName = (e) => {
         e.preventDefault();
@@ -85,7 +88,6 @@ export const FooterScreen = (props) => {
         if (props.selectedItems.length > 1) {
             title = props.selectedItems.map(t => t.title).reduce((prev, curr) => [prev, curr]);
             title = title.join(', ');
-            console.log(title);
             setTitleToDelete(title);
         } else {
             setTitleToDelete(props.selectedItems[0].title);

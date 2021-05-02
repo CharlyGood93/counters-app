@@ -15,6 +15,5 @@ export const postNewCounters = async (name) => {
         status: resp.status,
         data: await resp.json()
     }
-    console.log(newCounters);
     return newCounters;
 }

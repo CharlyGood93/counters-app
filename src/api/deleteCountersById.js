@@ -1,4 +1,4 @@
-import { urlAPI } from "../helpers/urlAPI"
+import { urlAPI } from "../helpers/urlAPI";
 
 export const deleteCountersById = async (id) => {
     const url = urlAPI();
@@ -14,7 +14,5 @@ export const deleteCountersById = async (id) => {
     const deleteCounters = {
         status: resp.status
     };
-    console.log(deleteCounters);
     return deleteCounters;
-
 }

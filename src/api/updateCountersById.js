@@ -1,4 +1,4 @@
-import { urlAPI } from "../helpers/urlAPI"
+import { urlAPI } from "../helpers/urlAPI";
 
 export const updateCountersById = async (id, opt) => {
 
