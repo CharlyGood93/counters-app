@@ -26,6 +26,25 @@
     border: none;
 }
 
+#my-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+#my-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(13deg, #dcdcdf 14%, #dcdcdf 64%);
+    border-radius: 10px;
+}
+
+#my-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #dcdcdf;
+}
+
+#my-scrollbar::-webkit-scrollbar-track {
+    background: #dcdcdf;
+    border-radius: 10px;
+}
+
 .opacity-list {
     opacity: 0.2!important;
 }
@@ -44,8 +63,6 @@
     cursor: pointer;
 }
 
-
-
-.vh-90 {
-    height: 90vh!important;
+.vh-80 {
+    height: 80vh!important;
 }

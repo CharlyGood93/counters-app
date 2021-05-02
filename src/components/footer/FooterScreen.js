@@ -125,7 +125,7 @@ export const FooterScreen = (props) => {
         <>
             <Row>
                 <Col>
-                    <footer className="footer position-fixed">
+                    <footer className="footer sticky-bottom">
                         <div className="actions float-left px-3 py-3"
                             style={{ visibility: props.selectedItems.length === 0 ? 'hidden' : 'visible' }}>
                             <Button color="white" size="big" onClick={handleShowDeleteAlert}>

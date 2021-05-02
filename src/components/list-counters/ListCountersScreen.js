@@ -94,8 +94,8 @@ export const ListCountersScreen = (props) => {
     }
 
     return (
-        <Row>
-            <Col className="vh-90">
+        <Row className="overflow-auto mt-3" id="my-scrollbar">
+            <Col className="vh-80">
                 {
                     props.products.length > 0 ?
                         <>

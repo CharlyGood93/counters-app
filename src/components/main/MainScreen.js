@@ -60,12 +60,12 @@ export const MainScreen = (props) => {
     const handleOnFocus = () => {
         setSearchFocus(true);
     }
-    
+
     return (
         <>
             <Container className="mh-100 py-4">
                 <Row>
-                    <Col className="d-flex align-items-center">
+                    <Col className="d-flex align-items-center searchbar pb-3">
                         <div className="search-icon position-absolute px-3">
                             <SearchIcon />
                         </div>
