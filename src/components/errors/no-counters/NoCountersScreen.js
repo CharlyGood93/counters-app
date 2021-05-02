@@ -5,7 +5,7 @@ import './NoCountersScreen.css';
 
 export const NoCountersScreen = () => {
     return (
-        <Row className="py-8 vh-90">
+        <Row className="py-8 vh-80">
             <Col className="col-md-12 text-center">
                 <h4 className="color-text">
                     <strong>No counters yet</strong>

@@ -11,9 +11,20 @@
     width: 100%;
 }
 
-.dismiss-button,
-.shared-cancel-button {
+.copy-button,
+.dismiss-button {
     color: var(--app-tint);
+}
+
+.items-to-shared {
+    font-size: 0.5rem!important;
+}
+
+.shared-information {
+    background-image: url('../../ui/Img/PaperNote.svg');
+    background-repeat: no-repeat;
+    height: 100px;
+    overflow-y: hidden;
 }
 
 .view-examples {

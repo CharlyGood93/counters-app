@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Col, OverlayTrigger, Row, Popover } from 'react-bootstrap';
+
+import { Col, OverlayTrigger, Row, Popover, Badge } from 'react-bootstrap';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { Alert, Button, CloseIcon, Input, Modal, NewIcon, OpenIcon, TrashBinIcon, useAlert, useModal } from '../../ui';
+
 import { deleteCountersById } from '../../api/deleteCountersById';
 import { postNewCounters } from '../../api/postNewCounters';
-import { Alert, Button, CloseIcon, Input, Modal, NewIcon, OpenIcon, TrashBinIcon, useAlert, useModal } from '../../ui';
+
 import { ExampleScreen } from '../examples/ExampleScreen';
 import { LoadingScreen } from '../loading/LoadingScreen';
 
@@ -18,9 +22,20 @@ export const FooterScreen = (props) => {
     const [titleToDelete, setTitleToDelete] = useState('');
     const [showRetryAlertDelete, setshowRetryAlertDelete] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [copyText, setCopyText] = useState('');
+    const [showMessageCopied, setShowMessageCopied] = useState(false);
 
     const { isVisible: isAlertVisible, hideAlert, showAlert } = useAlert();
     const { isVisible: isModalVisible, hideModal, showModal } = useModal();
+
+    useEffect(() => {
+        let text = '';
+        props.selectedItems.map(item => {
+            text += item.count + ' x ' + item.title + '\n';
+        });
+        setCopyText(text);
+        console.log(text);
+    }, [props.selectedItems]);
 
     const handleCountersName = (e) => {
         e.preventDefault();
@@ -71,7 +86,7 @@ export const FooterScreen = (props) => {
             title = props.selectedItems.map(t => t.title).reduce((prev, curr) => [prev, curr]);
             title = title.join(', ');
             console.log(title);
-            setTitleToDelete(title);    
+            setTitleToDelete(title);
         } else {
             setTitleToDelete(props.selectedItems[0].title);
         }
@@ -83,9 +98,9 @@ export const FooterScreen = (props) => {
         props.selectedItems.map(async item => {
             const resp = await deleteCountersById(item.id);
             if (resp.status === 200) {
-                // setSelectedItems([]);
-                // props.updateSelectedItems([]);
-                // props.countersData();
+                setSelectedItems([]);
+                props.updateSelectedItems([]);
+                props.countersData();
                 hideAlert(false);
             } else {
                 setshowRetryAlertDelete(true);
@@ -103,23 +118,47 @@ export const FooterScreen = (props) => {
         setshowRetryAlertDelete(false);
     }
 
-    const popoverShared = (
+    const handleCopyClipboard = () => {
+        setShowMessageCopied(true);
+        setTimeout(() => {
+            setShowMessageCopied(false);
+        }, 1500);
+    }
+
+    const myFirstPopover = (
         <Popover id="popover-basic">
             <Popover.Content>
                 <Row>
                     <Col>
-                        <p>Share 1 Counter</p>
-                        <Button className="shared-cancel-button" color="white">
-                            Copy
-                        </Button>
+                        {
+                            props.selectedItems.length > 0 ?
+                                <small><strong>Share {props.selectedItems.length} counters</strong></small> :
+                                <small><strong>Share 1 counter</strong></small>
+                        }
+                        <CopyToClipboard text={copyText} onCopy={handleCopyClipboard}>
+                            <Button className="copy-button mt-3" color="white">
+                                <strong>Copy</strong>
+                            </Button>
+                        </CopyToClipboard>
+                        {
+                            (showMessageCopied) && (<h6>Copied items success.</h6>)
+                        }
                     </Col>
                     <Col>
-                        IMG SHARED
+                        <div className="shared-information">
+                            <div className="pt-3">
+                                {
+                                    props.selectedItems.map(item => (
+                                        <p className="mb-0 pl-3 items-to-shared" key={item.id}><strong>{item.count} x {item.title}</strong></p>
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </Col>
                 </Row>
             </Popover.Content>
         </Popover>
-    )
+    );
 
     return (
         <>
@@ -131,7 +170,7 @@ export const FooterScreen = (props) => {
                             <Button color="white" size="big" onClick={handleShowDeleteAlert}>
                                 <TrashBinIcon fill="var(--destructive-red)" />
                             </Button>
-                            <OverlayTrigger trigger="click" placement="top" overlay={popoverShared}>
+                            <OverlayTrigger trigger="click" placement="top" overlay={myFirstPopover}>
                                 <Button className="ml-3" color="white" size="big">
                                     <OpenIcon fill="var(--dark-black)" />
                                 </Button>

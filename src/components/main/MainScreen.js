@@ -9,7 +9,7 @@ import { ErrorLoadCountersScreen } from '../errors/error-load-counters/ErrorLoad
 import { FooterScreen } from '../footer/FooterScreen';
 import { ListCountersScreen } from '../list-counters/ListCountersScreen';
 import { LoadingScreen } from '../loading/LoadingScreen';
-import { NoCountersScreen } from '../no-counters/NoCountersScreen';
+import { NoCountersScreen } from '../errors/no-counters/NoCountersScreen';
 
 import './MainScreen.css';
 
