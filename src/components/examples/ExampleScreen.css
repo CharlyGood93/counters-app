@@ -1,0 +1,14 @@
+.button-examples {
+    background-color: var(--silver);
+    border-radius: 25px;
+    color: var(--dark-black);
+    font-weight: 500;
+}
+
+.section-title {
+    margin-bottom: 0.3rem!important;
+}
+
+.title-examples {
+    color: var(--grey);
+}

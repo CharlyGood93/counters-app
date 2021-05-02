@@ -1,0 +1,21 @@
+.delete-button {
+    color: var(--destructive-red);
+}
+
+.footer {
+    border-top: 1px solid var(--silver);
+    bottom: 0;
+    left: 0;
+    max-height: max-content;
+    right: 0;
+    width: 100%;
+}
+
+.dismiss-button,
+.shared-cancel-button {
+    color: var(--app-tint);
+}
+
+.view-examples {
+    cursor: pointer;
+}

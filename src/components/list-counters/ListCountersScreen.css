@@ -1,0 +1,46 @@
+.active {
+    background-color: #FFEACC!important;
+    border-color: #FFEACC!important;
+    color: var(--dark-black)!important;
+    z-index: 0!important;
+}
+
+.dec-inc-button {
+    height: 0px;
+    width: 0px;
+}
+
+.dec-inc-button {
+    background-color: transparent!important;
+}
+
+.dec-inc-button::before {
+    background-color: transparent!important;
+}
+
+.dec-inc-button:disabled {
+    background-color: transparent!important;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.py-8 {
+    padding-bottom: 8rem!important;
+    padding-top: 8rem!important;
+}
+
+.selected-color {
+    color: var(--app-tint);
+    font-weight: 500;
+}
+
+.select-item {
+    cursor: pointer;
+}
+
+
+.vh-90 {
+    height: 90vh!important;
+}
