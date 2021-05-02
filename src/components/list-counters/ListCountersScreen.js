@@ -4,6 +4,7 @@ import { getAllCounters } from '../../api/getAllCounters';
 import { updateCountersById } from '../../api/updateCountersById';
 import { Alert, Button, DecrementIcon, IncrementIcon, useAlert } from '../../ui';
 import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
+import { NoResultsScreen } from '../errors/no-results/NoResultsScreen';
 
 import './ListCountersScreen.css';
 
@@ -93,71 +94,80 @@ export const ListCountersScreen = (props) => {
     return (
         <Row>
             <Col className="vh-90">
-                <ListGroup>
-                    <ListGroup.Item className="d-flex align-items-center">
-                        {
-                            selectedItems.length > 0 ?
-                                <>
+                {
+                    props.products.length > 0 ?
+                        <>
+                            <ListGroup>
+                                <ListGroup.Item className="d-flex align-items-center">
                                     {
-                                        <span className="align-items-center d-flex float-left mr-2 selected-color">
-                                            {selectedItems.length} selected
+                                        selectedItems.length > 0 ?
+                                            <>
+                                                {
+                                                    <span className="align-items-center d-flex float-left mr-2 selected-color">
+                                                        {selectedItems.length} selected
                                         </span>
-                                    }
-                                </> :
-                                <>
-                                    <span className="float-left mr-2">
-                                        {
-                                            props.products.length > 1 ?
-                                                <><strong>{props.products.length} items</strong></> : <><strong>{props.products.length} item</strong></>
-                                        }
-                                    </span>
-                                    <span className="float-none mr-2">
-                                        {
-                                            props.products.reduce((a, b) => a + b.count, 0)
-                                        }
+                                                }
+                                            </> :
+                                            <>
+                                                <span className="float-left mr-2">
+                                                    {
+                                                        props.products.length > 1 ?
+                                                            <><strong>{props.products.length} items</strong></> : <><strong>{props.products.length} item</strong></>
+                                                    }
+                                                </span>
+                                                <span className="float-none mr-2">
+                                                    {
+                                                        props.products.reduce((a, b) => a + b.count, 0)
+                                                    }
                                         &nbsp;times
                                     </span>
-                                </>
-                        }
-                        <span
-                            className="d-flex float-right align-items-center"
-                            onClick={handleRefreshList}
-                            style={{ color: refreshList && 'var(--app-tint)' }}>
-                            {
-                                refreshList ? <><RefreshIcon fill="var(--app-tint)" /> &nbsp;Refreshing...</> : <RefreshIcon />
-                            }
-                        </span>
-                    </ListGroup.Item>
-                    {
-                        props.products.map(product => (
-                            <ListGroup.Item id={product.id} key={product.id}>
-                                <span className="float-left select-item" onClick={() => handleSelectedItems(product)}>
-                                    {product.title}
-                                </span>
-                                <span className="align-items-center d-flex float-right">
-                                    <Button
-                                        className="border-0 shadow-none dec-inc-button"
-                                        color="white"
-                                        disabled={product.count <= 0 ? true : false}
-                                        onClick={() => handleDecIncCounters(product, 'dec')}
-                                        size="big">
-                                        <DecrementIcon
-                                            fill={product.count > 0 ? 'var(--app-tint)' : 'var(--grey)'} />
-                                    </Button>
-                                    <strong>{product.count}</strong>
-                                    <Button
-                                        className="border-0 shadow-none dec-inc-button"
-                                        color="white"
-                                        onClick={() => handleDecIncCounters(product, 'inc')}
-                                        size="big" >
-                                        <IncrementIcon
-                                            fill="var(--app-tint)" />
-                                    </Button>
-                                </span>
-                            </ListGroup.Item>
-                        ))
-                    }
-                </ListGroup>
+                                            </>
+                                    }
+                                    <span
+                                        className="d-flex float-right align-items-center"
+                                        onClick={handleRefreshList}
+                                        style={{ color: refreshList && 'var(--app-tint)' }}>
+                                        {
+                                            refreshList ? <><RefreshIcon fill="var(--app-tint)" /> &nbsp;Refreshing...</> : <RefreshIcon />
+                                        }
+                                    </span>
+                                </ListGroup.Item>
+                                {
+                                    props.products.map(product => (
+                                        <ListGroup.Item id={product.id} key={product.id}>
+                                            <span className="float-left select-item" onClick={() => handleSelectedItems(product)}>
+                                                {product.title}
+                                            </span>
+                                            <span className="align-items-center d-flex float-right">
+                                                <Button
+                                                    className="border-0 shadow-none dec-inc-button"
+                                                    color="white"
+                                                    disabled={product.count <= 0 ? true : false}
+                                                    onClick={() => handleDecIncCounters(product, 'dec')}
+                                                    size="big">
+                                                    <DecrementIcon
+                                                        fill={product.count > 0 ? 'var(--app-tint)' : 'var(--grey)'} />
+                                                </Button>
+                                                <strong>{product.count}</strong>
+                                                <Button
+                                                    className="border-0 shadow-none dec-inc-button"
+                                                    color="white"
+                                                    onClick={() => handleDecIncCounters(product, 'inc')}
+                                                    size="big" >
+                                                    <IncrementIcon
+                                                        fill="var(--app-tint)" />
+                                                </Button>
+                                            </span>
+                                        </ListGroup.Item>
+                                    ))
+                                }
+                            </ListGroup>
+                        </> :
+                        <>
+                           <NoResultsScreen />
+                        </>
+                }
+
                 {
                     showErrorUpdate &&
                     <>

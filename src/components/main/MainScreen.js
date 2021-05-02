@@ -4,13 +4,14 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { getAllCounters } from '../../api/getAllCounters';
 import { NoCounters } from '../no-counters/NoCounters';
 
-import { Input } from '../../ui';
-import { ErrorLoadCountersScreen } from '../errors/ErrorLoadCountersScreen';
+import { Button, Input, SearchIcon } from '../../ui';
+import { ErrorLoadCountersScreen } from '../errors/error-load-counters/ErrorLoadCountersScreen';
 import { ListCountersScreen } from '../list-counters/ListCountersScreen';
 
 import './MainScreen.css';
 import { FooterScreen } from '../footer/FooterScreen';
 import { LoadingScreen } from '../loading/LoadingScreen';
+import { SearchbarScreen } from '../searchbar/SearchbarScreen';
 
 export const MainScreen = (props) => {
 
@@ -20,10 +21,18 @@ export const MainScreen = (props) => {
     });
     const [loading, setLoading] = useState(true);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [searchFocus, setSearchFocus] = useState(false);
+    const [searchFilter, setSearchFilter] = useState([]);
 
     useEffect(() => {
         countersData();
     }, []);
+
+    useEffect(() => {
+        setSearchFilter(getCounters.data.filter(item => item.title.toLowerCase().includes(searchValue.toLocaleLowerCase())));
+        console.log(searchFilter);
+    }, [searchValue, getCounters]);
 
     const countersData = async () => {
         const data = await getAllCounters();
@@ -38,15 +47,51 @@ export const MainScreen = (props) => {
         console.log({ main: selectedItems });
     }
 
+    const handleChangeSearch = (e) => {
+        e.preventDefault();
+        setSearchValue(e.target.value);
+    }
+
+    const handleCancelSearch = () => {
+        setSearchValue('');
+        setSearchFocus(false);
+    }
+
+    const handleOnFocus = () => {
+        setSearchFocus(true);
+    }
+
+    const handleOnBlur = () => {
+        setSearchFocus(false);
+    }
+
     return (
         <>
             <Container className="mh-100 py-4">
-                {/* TODO: Change this to filter */}
                 <Row>
-                    <Col>
-                        <Input placeholder="Search Counters" disabled={getCounters.data.length > 0 ? false : true} />
+                    <Col className="d-flex align-items-center">
+                        <div className="search-icon position-absolute px-3">
+                            <SearchIcon />
+                        </div>
+                        <Input
+                            className="search-input pl-5"
+                            disabled={getCounters.data.length > 0 ? false : true}
+                            placeholder="Search Counters"
+                            onBlur={handleOnBlur}
+                            onChange={handleChangeSearch}
+                            onFocus={handleOnFocus} />
+                        {
+                            (getCounters.data.length > 0 && searchFocus) &&
+                            (<Button
+                                className="ml-3"
+                                color="white"
+                                onClick={handleCancelSearch}>
+                                Cancel
+                            </Button>)
+                        }
                     </Col>
                 </Row>
+                {/* <SearchbarScreen getCounters={getCounters.data} getFilteredSearch={items => getFilteredSearch(items)} /> */}
                 {
                     loading ? <LoadingScreen classNameTitle={'py-8 vh-90'} /> :
                         <>
@@ -62,7 +107,7 @@ export const MainScreen = (props) => {
                                     </> :
                                     getCounters.data.length > 0 ?
                                         <ListCountersScreen
-                                            products={getCounters.data}
+                                            products={searchFilter}
                                             selectedItems={selectedItems}
                                             updateSelectedItems={items => updateSelectedItems(items)}
                                         /> :
