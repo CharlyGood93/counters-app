@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import './NoCounters.css';
+import './NoCountersScreen.css';
 
-export const NoCounters = () => {
+export const NoCountersScreen = () => {
     return (
         <Row className="py-8 vh-90">
             <Col className="col-md-12 text-center">

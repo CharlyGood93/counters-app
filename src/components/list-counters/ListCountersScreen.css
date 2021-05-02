@@ -26,6 +26,10 @@
     border: none;
 }
 
+.opacity-list {
+    opacity: 0.2!important;
+}
+
 .py-8 {
     padding-bottom: 8rem!important;
     padding-top: 8rem!important;
@@ -39,6 +43,7 @@
 .select-item {
     cursor: pointer;
 }
+
 
 
 .vh-90 {

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 
 import { getAllCounters } from '../../api/getAllCounters';
-import { NoCounters } from '../no-counters/NoCounters';
 
+import { Col, Container, Row } from 'react-bootstrap';
 import { Button, Input, SearchIcon } from '../../ui';
+
 import { ErrorLoadCountersScreen } from '../errors/error-load-counters/ErrorLoadCountersScreen';
+import { FooterScreen } from '../footer/FooterScreen';
 import { ListCountersScreen } from '../list-counters/ListCountersScreen';
+import { LoadingScreen } from '../loading/LoadingScreen';
+import { NoCountersScreen } from '../no-counters/NoCountersScreen';
 
 import './MainScreen.css';
-import { FooterScreen } from '../footer/FooterScreen';
-import { LoadingScreen } from '../loading/LoadingScreen';
-import { SearchbarScreen } from '../searchbar/SearchbarScreen';
 
 export const MainScreen = (props) => {
 
@@ -31,7 +31,6 @@ export const MainScreen = (props) => {
 
     useEffect(() => {
         setSearchFilter(getCounters.data.filter(item => item.title.toLowerCase().includes(searchValue.toLocaleLowerCase())));
-        console.log(searchFilter);
     }, [searchValue, getCounters]);
 
     const countersData = async () => {
@@ -54,17 +53,14 @@ export const MainScreen = (props) => {
 
     const handleCancelSearch = () => {
         setSearchValue('');
+        console.log(searchValue);
         setSearchFocus(false);
     }
 
     const handleOnFocus = () => {
         setSearchFocus(true);
     }
-
-    const handleOnBlur = () => {
-        setSearchFocus(false);
-    }
-
+    
     return (
         <>
             <Container className="mh-100 py-4">
@@ -77,9 +73,9 @@ export const MainScreen = (props) => {
                             className="search-input pl-5"
                             disabled={getCounters.data.length > 0 ? false : true}
                             placeholder="Search Counters"
-                            onBlur={handleOnBlur}
                             onChange={handleChangeSearch}
-                            onFocus={handleOnFocus} />
+                            onFocus={handleOnFocus}
+                            value={searchValue} />
                         {
                             (getCounters.data.length > 0 && searchFocus) &&
                             (<Button
@@ -91,30 +87,25 @@ export const MainScreen = (props) => {
                         }
                     </Col>
                 </Row>
-                {/* <SearchbarScreen getCounters={getCounters.data} getFilteredSearch={items => getFilteredSearch(items)} /> */}
+            
                 {
                     loading ? <LoadingScreen classNameTitle={'py-8 vh-90'} /> :
                         <>
                             {
                                 getCounters.status !== 200 ?
-                                    <>
-                                        {/* TODO: Programing and change this */}
-                                        <Row>
-                                            <Col>
-                                                <ErrorLoadCountersScreen />
-                                            </Col>
-                                        </Row>
-                                    </> :
+                                    <ErrorLoadCountersScreen countersData={countersData} /> :
                                     getCounters.data.length > 0 ?
                                         <ListCountersScreen
                                             products={searchFilter}
+                                            searchFocus={searchFocus}
                                             selectedItems={selectedItems}
                                             updateSelectedItems={items => updateSelectedItems(items)}
                                         /> :
-                                        <NoCounters />
+                                        <NoCountersScreen />
                             }
                         </>
                 }
+
                 <FooterScreen
                     countersData={countersData}
                     selectedItems={selectedItems}

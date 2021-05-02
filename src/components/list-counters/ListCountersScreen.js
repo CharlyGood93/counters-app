@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Col, ListGroup, Row, Table } from 'react-bootstrap';
-import { getAllCounters } from '../../api/getAllCounters';
+
 import { updateCountersById } from '../../api/updateCountersById';
+
+import { Col, ListGroup, Row, Table } from 'react-bootstrap';
 import { Alert, Button, DecrementIcon, IncrementIcon, useAlert } from '../../ui';
 import { RefreshIcon } from '../../ui/Icons/RefreshIcon';
+
 import { NoResultsScreen } from '../errors/no-results/NoResultsScreen';
 
 import './ListCountersScreen.css';
@@ -97,7 +99,7 @@ export const ListCountersScreen = (props) => {
                 {
                     props.products.length > 0 ?
                         <>
-                            <ListGroup>
+                            <ListGroup className={`${props.searchFocus ? 'opacity-list' : ''}`}>
                                 <ListGroup.Item className="d-flex align-items-center">
                                     {
                                         selectedItems.length > 0 ?
@@ -164,7 +166,7 @@ export const ListCountersScreen = (props) => {
                             </ListGroup>
                         </> :
                         <>
-                           <NoResultsScreen />
+                            <NoResultsScreen />
                         </>
                 }
 

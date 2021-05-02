@@ -22,15 +22,6 @@ export const FooterScreen = (props) => {
     const { isVisible: isAlertVisible, hideAlert, showAlert } = useAlert();
     const { isVisible: isModalVisible, hideModal, showModal } = useModal();
 
-    // useEffect(() => {
-    //     console.log(selectedItems);
-    //     if (selectedItems.length > 1) {
-    //         props.updateSelectedItems(selectedItems);
-    //     } else {
-    //         props.updateSelectedItems([]);
-    //     }
-    // }, [selectedItems]);
-
     const handleCountersName = (e) => {
         e.preventDefault();
         setGetCountersName(e.target.value);
