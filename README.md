@@ -140,3 +140,144 @@ Good luck! 🎉
 We hope your submission is… to die for.
 
 ![Coffin dance](coffin.gif)
+
+# Resume proyect counters app by Carlos Aravena
+
+> This is my resume how I programed the counters app based in my experience on React JS
+
+## Sctructure from the proyect
+
+│   App.js
+│   index.css
+│   index.js
+│   logo.svg
+│   setupTests.js
+│
+├───api
+│       deleteCountersById.js
+│       getAllCounters.js
+│       postNewCounters.js
+│       updateCountersById.js
+│
+├───components
+│   ├───errors
+│   │   ├───error-load-counters
+│   │   │       ErrorLoadCountersScreen.css
+│   │   │       ErrorLoadCountersScreen.js
+│   │   │
+│   │   ├───no-counters
+│   │   │       NoCountersScreen.css
+│   │   │       NoCountersScreen.js
+│   │   │
+│   │   └───no-results
+│   │           NoResultsScreen.css
+│   │           NoResultsScreen.js
+│   │
+│   ├───examples
+│   │       ExampleScreen.css
+│   │       ExampleScreen.js
+│   │
+│   ├───footer
+│   │       FooterScreen.css
+│   │       FooterScreen.js
+│   │
+│   ├───header
+│   │       HeaderScreen.js
+│   │
+│   ├───list-counters
+│   │       ListCountersScreen.css
+│   │       ListCountersScreen.js
+│   │
+│   ├───loading
+│   │       LoadingScreen.css
+│   │       LoadingScreen.js
+│   │
+│   ├───main
+│   │       MainScreen.css
+│   │       MainScreen.js
+│   │
+│   └───welcome
+│           WelcomeScreen.css
+│           WelcomeScreen.js
+│
+├───data
+│       products.js
+│
+├───helpers
+│       urlAPI.js
+│
+├───routers
+│       AppRouter.js
+│
+├───tests
+│   ├───api
+│   │       getAllCounters.test.js
+│   │
+│   ├───components
+│   │   ├───main
+│   │   │   │   MainScreen.test.js
+│   │   │   │
+│   │   │   └───__snapshots__
+│   │   │           MainScreen.test.js.snap
+│   │   │
+│   │   └───welcome
+│   │       │   WelcomeScreen.test.js
+│   │       │
+│   │       └───__snapshots__
+│   │               WelcomeScreen.test.js.snap
+│   │
+│   └───routers
+│       │   AppRouter.test.js
+│       │
+│       └───__snapshots__
+│               AppRouter.test.js.snap
+│
+└───ui
+    │   index.js
+    │
+    ├───Alert
+    │       Alert.css
+    │       Alert.js
+    │       index.js
+    │
+    ├───Button
+    │       Button.css
+    │       Button.js
+    │       index.js
+    │
+    ├───Icons
+    │       CloseIcon.js
+    │       DecrementIcon.js
+    │       IncrementIcon.js
+    │       index.js
+    │       NewIcon.js
+    │       OpenIcon.js
+    │       RefreshIcon.js
+    │       SearchIcon.js
+    │       TrashBinIcon.js
+    │
+    ├───Img
+    │       PaperNote.svg
+    │
+    ├───Input
+    │       index.js
+    │       Input.css
+    │       Input.js
+    │
+    ├───Loading
+    │       index.js
+    │       Loading.css
+    │       Loading.js
+    │
+    └───Modal
+            index.js
+            Modal.css
+            Modal.js
+
+> To continuation I will explain the structure and the reason why I use this composition
+
+#### api folder
+
+Inside this folder exists four files that have the logic to call to the apis and release the CRUD correspond, I used this way to can utilize this functions on any part of the project
+
+#### components
