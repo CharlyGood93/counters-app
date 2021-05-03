@@ -182,9 +182,6 @@ We hope your submission is… to die for.
 │   │       FooterScreen.css
 │   │       FooterScreen.js
 │   │
-│   ├───header
-│   │       HeaderScreen.js
-│   │
 │   ├───list-counters
 │   │       ListCountersScreen.css
 │   │       ListCountersScreen.js
@@ -276,10 +273,63 @@ We hope your submission is… to die for.
             Modal.js
 ```
 
-> To continuation I will explain the structure and the reason why I use this composition
+> To continuation I will explain the structure and the reason why I use this composition.
 
-#### api folder
+## api folder
 
-Inside this folder exists four files that have the logic to call to the apis and release the CRUD correspond, I used this way to can utilize this functions on any part of the project
+Inside this folder exists four files that have the logic to call to the apis and release the CRUD correspond, I used this way to can utilize this functions on any part of the project.
 
-#### components
+## components
+
+In component folder I created exists subfolders that contain the next.
+
+- #### errorsScreens components
+
+In the errors components I have the views that can i show when it happens some error with de apis, every component have her CSS file.
+
+- #### ExamplesScreen component
+
+In the examples component I created the logic for when the user clicks on "see examples" to be able to consume a resource that I have within the data folder, with this I display the information in clickable buttons and display it in the corresponding field by passing them through the properties of the component.
+
+- #### FooterScreen component
+
+This component contain the mayor logic inside the functionalities for the actions delete items, add items, share items. Using the React Hooks, useState and useEffect mayorly. This served me to construct the logic in FooterScreen component.
+
+- #### ListCountersScreen component
+
+Here I display the data when I create counters items, I consume the GET Counters API to obtain the information and generate a list of counters. Additionally I use de UPDATE Counters API to change de quantity of counters I have and I created the logic to can select items and send to FooterScreen component to make actions like delete items and more.
+
+- #### MainScreen component
+
+The first API that I consume is GET Counters, to save this data and display in the ListCountersScreen Component. I used the UI components in this case the Loading UI to make dynamic the request of data. Too I created the logic to filter de data and show this filtered data in ListCountersScreen Component.
+
+- #### WelcomeScreen component
+
+Is the default component that I show using the react-router-dom library, with this library I configure the router of the application.
+
+## data and helpers folder
+
+Inside this folder I have a files that help me in the development to the application, of this way I avoid the duplicity of variables to use.
+
+## routers folder
+
+I created the AppRouter Component to configure the routers of the application and too the redirect configuration when the path not exists.
+
+## tests folder
+
+Here I have the tests realized using the enzyme and enzyme-to-json library. This allowed me make tests like take snapshots to the component, validate the consume of the apis and more.
+
+## External libraries
+
+To can develop the application I use different external libraries like:
+
+- react-bootstrap to complement the design to complement the design of the views and style
+- react-router-dom to configure the routers of the application
+- enzyme and enzyme-to-json to tests the components
+- react-copy-to-clipboard to make the function share items
+
+If your run this application first write this command line
+
+```
+npm install
+```
