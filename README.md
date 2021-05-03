@@ -147,6 +147,7 @@ We hope your submission is… to die for.
 
 ## Sctructure from the proyect
 
+```
 │   App.js
 │   index.css
 │   index.js
@@ -273,6 +274,7 @@ We hope your submission is… to die for.
             index.js
             Modal.css
             Modal.js
+```
 
 > To continuation I will explain the structure and the reason why I use this composition
 
