@@ -46,7 +46,6 @@ export const MainScreen = (props) => {
     }
 
     const handleChangeSearch = (e) => {
-        e.preventDefault();
         setSearchValue(e.target.value);
     }
 

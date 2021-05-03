@@ -203,11 +203,11 @@ export const FooterScreen = (props) => {
                                         </Col>
                                     </> :
                                     <>
-                                        <Col>
+                                        <Col className="d-flex align-items-center">
                                             <Button className="mr-2" color="grey" onClick={handleHideModal} size="big">
                                                 <CloseIcon fill="var(--white)" />
                                             </Button>
-                                            <small>
+                                            <small className="title-create-counters">
                                                 <strong>Create counters</strong>
                                             </small>
                                         </Col>

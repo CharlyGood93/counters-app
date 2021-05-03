@@ -27,6 +27,10 @@
     overflow-y: hidden;
 }
 
+.title-create-counters {
+    white-space: nowrap;
+}
+
 .view-examples {
     cursor: pointer;
 }

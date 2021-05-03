@@ -14,8 +14,7 @@ export const updateCountersById = async (id, opt) => {
     const resp = await fetch(url, request);
     const updateCounters = {
         status: resp.status,
-        data: await resp.json()
+        data: resp.status === 200 ? await resp.json() : []
     };
-    console.log(updateCounters);
     return updateCounters;
 }

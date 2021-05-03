@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test in <WelcomeScreen /> Should show the <WelcomeScreen /> component correctly 1`] = `
+<Container
+  fluid={false}
+>
+  <Row
+    className="mt-5 py-5"
+    noGutters={false}
+  >
+    <Col
+      className="col-md-12 text-center"
+    >
+      <ForwardRef(SvgLogo) />
+    </Col>
+  </Row>
+  <Row
+    className="mt-3 py-3"
+    noGutters={false}
+  >
+    <Col
+      className="col-md-12 text-center"
+    >
+      <h4
+        className="color-text"
+      >
+        <strong>
+          Welcome to Counters
+        </strong>
+      </h4>
+      <p
+        className="color-text"
+      >
+        Capture cups of lattes, frappucinos, or anything else that can be counted.
+      </p>
+    </Col>
+  </Row>
+  <Row
+    className="mt-2 py-2"
+    noGutters={false}
+  >
+    <Col
+      className="col-md-12 text-center py-32"
+    >
+      <Button
+        onClick={[Function]}
+      >
+        Get started
+      </Button>
+    </Col>
+  </Row>
+</Container>
+`;

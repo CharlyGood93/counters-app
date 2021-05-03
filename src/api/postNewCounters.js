@@ -13,7 +13,7 @@ export const postNewCounters = async (name) => {
     const resp = await fetch(url, request);
     const newCounters = {
         status: resp.status,
-        data: await resp.json()
+        data: resp.status === 200 ? await resp.json() : []
     }
     return newCounters;
 }

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test in <MainScreen /> It should show the <MainScreen /> component correctly  1`] = `
+<Fragment>
+  <Container
+    className="mh-100 py-4"
+    fluid={false}
+  >
+    <Row
+      noGutters={false}
+    >
+      <Col
+        className="d-flex align-items-center searchbar pb-3"
+      >
+        <div
+          className="search-icon position-absolute px-3"
+        >
+          <SearchIcon />
+        </div>
+        <Input
+          className="search-input pl-5"
+          disabled={true}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Search Counters"
+          value=""
+        />
+      </Col>
+    </Row>
+    <LoadingScreen
+      classNameTitle="py-8 vh-90"
+    />
+    <FooterScreen
+      countersData={[Function]}
+      selectedItems={Array []}
+      updateSelectedItems={[Function]}
+    />
+  </Container>
+</Fragment>
+`;
